@@ -44,19 +44,19 @@ def get_frequent_itemset_and_rules(transactions, s, c):
     print("Start finding frequent itemsets...")
     start_time = time.time()
     frequent_itemsets = apr.find_frequent_itemsets(transactions)
-    print(f"number of frequent itemsets = {len(frequent_itemsets)}")
-    print("example of frequent itemsets")
-    print(frequent_itemsets[:10])
-    print(f"finding frequent itemset = {time.time() - start_time:.2f} seconds")
+    print(f"Number of frequent itemsets = {len(frequent_itemsets)}")
+    print("Example of frequent itemsets")
+    print(list(frequent_itemsets)[:10])
+    print(f"Finding frequent itemset time= {time.time() - start_time:.2f} seconds")
 
     start_time = time.time()
     print("Start finding association rules...")
     association_rules = apr.mine_association_rules(frequent_itemsets)
-    print(f"number of association rules = {len(association_rules)}")
-    print(f"finding association rules time = {time.time() - start_time:.2f} seconds")
+    print(f"Number of association rules = {len(association_rules)}")
+    print(f"Finding association rules time = {time.time() - start_time:.2f} seconds")
 
-    for rule in rules[:10]:
-        print(f"{rule[0]} -> {rule[1]}, confidence = {rule[2]}")
+    for rule in association_rules[:10]:
+        print(f"{rule[0]} -> {rule[1]}, confidence = {rule[2]:.2f}")
     return frequent_itemsets, association_rules
 
 
@@ -78,8 +78,7 @@ def parse_args():
 if __name__ == "__main__":
     args = parse_args()
 
-    # 1. Download the real dataset
     transactions = get_real_dataset()
     frequent_itemsets, association_rules = get_frequent_itemset_and_rules(
-        transactions, 500, 0.75
+        transactions, args.s, args.c
     )

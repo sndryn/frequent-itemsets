@@ -28,6 +28,7 @@ class Apriori:
         while L:
             print(f"Finding frequent Itemset with Size = {k}")
             Ck = self.generate_candidates(L, k)
+            print(f"Number of candidates with size {k} = {len(Ck)}")
             if not Ck:
                 break
 
@@ -136,12 +137,12 @@ class Apriori:
 
         for transaction in transactions:
             for item in transaction:
-                counter[item] += 1
+                counter[frozenset([item])] += 1 
 
         candidates = self.prune(counter)
         self.counter += counter
         print(f"Number of frequent itemsets with size 1 = {len(candidates)}")
-        return {frozenset([item]) for item in candidates}
+        return candidates
 
     def generate_candidates(self, L, k):
         """
