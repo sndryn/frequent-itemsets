@@ -14,6 +14,7 @@ class Apriori:
     def find_frequent_itemsets(self, transactions):
         """
         Find frequent itemsets from the given transactions.
+        Based on pseudocode from https://en.wikipedia.org/wiki/Apriori_algorithm
 
         Args:
             transactions: A collection of transactions.
@@ -139,10 +140,10 @@ class Apriori:
             for item in transaction:
                 counter[frozenset([item])] += 1 
 
-        candidates = self.prune(counter)
+        itemsets = self.prune(counter)
         self.counter += counter
-        print(f"Number of frequent itemsets with size 1 = {len(candidates)}")
-        return candidates
+        print(f"Number of frequent itemsets with size 1 = {len(itemsets)}")
+        return itemsets
 
     def generate_candidates(self, L, k):
         """

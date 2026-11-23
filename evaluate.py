@@ -39,6 +39,7 @@ def get_frequent_itemset_and_rules(transactions, s, c):
     Returns:
         None. Prints the total number of generated association rules.
     """
+    print(f"Running with minimum support threshold s = {s} and minimum confidence threshold c = {c}")
     apr = Apriori(s, c)
 
     print("Start finding frequent itemsets...")
@@ -49,14 +50,17 @@ def get_frequent_itemset_and_rules(transactions, s, c):
     print(list(frequent_itemsets)[:10])
     print(f"Finding frequent itemset time= {time.time() - start_time:.2f} seconds")
 
-    start_time = time.time()
+    intermediate_time = time.time()
     print("Start finding association rules...")
     association_rules = apr.mine_association_rules(frequent_itemsets)
+    end_time = time.time()
     print(f"Number of association rules = {len(association_rules)}")
-    print(f"Finding association rules time = {time.time() - start_time:.2f} seconds")
+    print(f"Finding association rules time = {end_time- intermediate_time:.2f} seconds")
 
     for rule in association_rules[:10]:
         print(f"{rule[0]} -> {rule[1]}, confidence = {rule[2]:.2f}")
+
+    print(f"Total time = {end_time - start_time:.2f}")
     return frequent_itemsets, association_rules
 
 
